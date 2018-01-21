@@ -1,10 +1,17 @@
-var action1 = () =>({
-    type:'action1'
+var Add = (data) => ({
+    type:'ADD',
+    data:{
+    	isdone:3,
+    	text:data
+    }
 })
-var action2 = () =>({
-    type:'action2'
+var Remove = () => ({
+    type:'Remove'
 })
-var action3 = () =>({
-    type:'action3'
+var Complate = () => ({
+    type:'Complate'
 })
-export { action1, action2, action3 }
+var fetchData = () => ({
+	type:'fetchData'
+})
+export { Add, Remove, Complate, fetchData };

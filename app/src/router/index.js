@@ -2,8 +2,11 @@ import { BrowserRouter as Router, Route, Link, BrowserRouter } from 'react-route
 import React, { Component } from 'react';
 import App from '../App';
 
+
 export const route = (
     <Router>
-        <Route path="/" component={ App }></Route>
+        <Route path="/" component={ App }>
+        	
+        </Route>
     </Router>
 )

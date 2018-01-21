@@ -1,10 +1,20 @@
+
+
 var initialState = {
-    num:0
+    ToDoList:[]
 }
 export default function reducer(state = initialState,action) {
     var state = state;
     switch(action.type){
-        case 'action1':
+        case 'Add':
+            state.ToDoList.push(action.data)
+            return state;
+        break;
+        case 'Remove':
+            state.num++;
+            return Object.assign({},state);
+        break;
+        case 'Complate':
             state.num++;
             return Object.assign({},state);
         break;

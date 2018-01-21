@@ -5,7 +5,6 @@ import {Provider} from 'react-redux';
 import configureStore from './redux/store'
 import registerServiceWorker from './registerServiceWorker';
 import * as router from './router';
-console.log(router)
 
 const store = configureStore();
 

@@ -8,5 +8,5 @@ import * as router from './router';
 
 const store = configureStore();
 
-ReactDOM.render(<Provider store={store}>{ router.route }</Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider store={ store }>{ router.route }</Provider>, document.getElementById('root'));
 registerServiceWorker();

@@ -5,8 +5,6 @@ import App from '../App';
 
 export const route = (
     <Router>
-        <Route path="/" component={ App }>
-        	
-        </Route>
+        <Route path="/" component={ App } ></Route>
     </Router>
 )

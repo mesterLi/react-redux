@@ -1,5 +1,5 @@
 var Add = (data) => ({
-    type:'ADD',
+    type:'Add',
     data:{
     	isdone:3,
     	text:data

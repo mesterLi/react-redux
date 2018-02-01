@@ -10,9 +10,8 @@ class List extends Component{
 		const { InitLoad } =this.props;
 		InitLoad();
 	}
-	remove() {
-		// this.props.RemoveData()
-		console.log(this)
+	Remove(that,item) {
+		this.props.RemoveData({id:item.id})
 	}
 	render() {
 		console.log(this.props)
@@ -22,10 +21,10 @@ class List extends Component{
 					<td>{v.user}</td>
 					<td>{v.age}</td>
 					<td>编辑</td>
-					<td>删除</td>
+					<td onClick={this.Remove.bind(this,v)}>删除</td>
 				</tr>
 			)
-		})
+		},this)
 		return (
 			<div>
 				<table>

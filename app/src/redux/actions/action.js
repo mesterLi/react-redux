@@ -1,17 +1,27 @@
-var Add = (data) => ({
-    type:'Add',
-    data:{
-    	isdone:3,
-    	text:data
-    }
+const ADD_GUN = "AddGun";
+const REMOVE_GUN = "RemoveGun";
+const ASYCN_ADD_GUN = "AsycnAddGun";
+
+var AddGun = () => ({
+    type:ADD_GUN
 })
-var Remove = () => ({
-    type:'Remove'
+var RemoveGun = () => ({
+    type:REMOVE_GUN
 })
-var Complate = () => ({
-    type:'Complate'
-})
+var AsycnAddGun = () =>{//异步
+	return dispatch=>{
+		setTimeout(()=>{
+			dispatch(AddGun())
+		},2000)
+	}
+}
 var fetchData = () => ({
 	type:'fetchData'
 })
-export { Add, Remove, Complate, fetchData };
+// function actionCreater(type,data) {
+// 	retrun {
+// 		type:type,
+// 		data:data||''
+// 	}
+// }
+export { AddGun, RemoveGun, AsycnAddGun, fetchData };

@@ -1,37 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions/action';
+import reducer from './redux/reducer/reducer';
 import { bindActionCreators } from 'redux';
 import { Link, Route } from 'react-router-dom';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
-import Nav from './components/nav/nav';
-import { Home, Project, Setting, Active } from './components/child';
-//css
-import './css/App.css';
+import './style/todolist.css'
 
 class App extends Component {
   componentWillMount() {
-    
   }
   render () {
+    console.log(this.props)
     return (
       <div>
-        <Nav />
-        <div>
-          <Route path="/Home" component={Home}></Route>
-          <Route path="/Project" component={Project}></Route>
-          <Route path="/Setting" component={Setting}></Route>
-          <Route path="/Active" component={Active}></Route>
-        </div>
+        <h1 className="title">小练习</h1>
+        <label>
+          姓名<input defaultValue="" />
+        </label>
+        <label>
+          年龄<input defaultValue="" />
+        </label>
+        <button>添加</button>
       </div>
     )
   }
 }
 const mapStateToProps = state =>({
-  state:state.ToDoList
+  state:state
 })
-const mapDispatchToProps = dispatch=>({
-  action:bindActionCreators(actions,dispatch),
-  dispatch:dispatch
-})
+const mapDispatchToProps = actions;
 export default connect(mapStateToProps,mapDispatchToProps)(App);
+

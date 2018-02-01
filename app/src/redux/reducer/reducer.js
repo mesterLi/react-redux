@@ -1,21 +1,14 @@
+import axios from 'axios';
 
-
-var initialState = {
-    ToDoList:[]
-}
-export default function reducer(state = initialState,action) {
-    var state = state;
+export default function reducer(state = 10,action) {
     switch(action.type){
-        case 'Add':
-            state.ToDoList.push(action.data)
-            return state;
+        case 'AddGun':
+            return state+1;
         break;
-        case 'Remove':
-            state.num++;
-            return Object.assign({},state);
+        case 'RemoveGun':
+            return state-1;
         break;
-        case 'Complate':
-            state.num++;
+        case 'fetchData':
             return Object.assign({},state);
         break;
         default:

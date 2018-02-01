@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export default function reducer(state = 10,action) {
+export default function reducer(state = [],action) {
     switch(action.type){
-        case 'AddGun':
-            return state+1;
+        case 'LoadData':
+            return action.data;
         break;
         case 'RemoveGun':
             return state-1;

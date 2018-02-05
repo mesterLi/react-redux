@@ -1,10 +1,12 @@
-import { BrowserRouter as Router, Route, Link, BrowserRouter } from 'react-router-dom';//react-router 4.0
+import { BrowserRouter, Route, Link, BrowserRouter } from 'react-router-dom';//react-router 4.0
 import React, { Component } from 'react';
 import App from '../App';
+import Login from '../components/login';
 
 
 export const route = (
-    <Router>
+    <BrowserRouter>
         <Route path="/" component={ App } ></Route>
-    </Router>
+        <Route path="/login" component={ Login } ></Route>
+    </BrowserRouter>
 )

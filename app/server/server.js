@@ -4,12 +4,10 @@ var cookieParser = require('cookie-parser');
 var bodyParse = require('body-parser');
 
 var user = require('./user');
-
 const app = express();
 app.use(cookieParser());
 app.use(bodyParse.json());
 app.use('/user',user);
-
 // 链接mongo 并且使用mester这个集合
 // const DB_URL = 'mongodb://localhost:27017/mester';
 // var DATA = {

@@ -1,46 +1,38 @@
 import axios from 'axios';
-const ADD_GUN = "AddGun";
-const REMOVE_GUN = "RemoveGun";
-const ASYCN_ADD_GUN = "AsycnAddGun";
+const SUCCESS = 'Success';
+const ERROR = 'Error';
 
-const LOAD_DATA = "LoadData";
-
-var LoadData = (data) =>({
-	type:LOAD_DATA,
+const Success = (data) => ({
+	type:SUCCESS,
 	data:data
 })
-var RemoveData = (data) =>{
-	return dispatch =>{
-		axios.get('/data/remove?id='+data.id)
-			.then((res)=>{
-				if(res.data.code == 200){
-					dispatch(InitLoad())
-				}
-			})
-	}
-}
-var InitLoad = () =>{
-	return dispatch => {
-		axios.get('/data/query')
-	      .then(function(res){
-	        if(res.data.code==200){
-	          dispatch(LoadData(res.data.body))
-	        }
-	    })
-	}
-}
-var AddData = (data) =>{//异步
-	return dispatch=>{
-		axios.get('/data/add?user='+data.user+'&age='+data.age)
-			.then(function(res){
-				console.log(res)
-				if(res.data.code == 200){
-					dispatch(InitLoad())
-				}
-			})
-	}
-}
-var fetchData = () => ({
-	type:'fetchData'
+const Error = (msg) => ({
+	type:ERROR,
+	data:msg
 })
-export { LoadData, AddData, InitLoad, RemoveData };
+const Register = ({name,pwd,repwd,type}) => {
+	if(!name||!pwd){
+		return Error('账号和密码不能为空')
+	}
+	if(pwd!==repwd){
+		return Error('两次密码不一致')
+	}
+	return dispatch =>{
+		axios.post('/user/register',{name,pwd,type})
+			.then((res)=>{
+				switch(res.data.code){
+					case 0:
+						var data = res.data.body;
+						dispatch(Success(data))
+					break;
+					case 1:
+						dispatch(Error('用户名重复'))
+					break;
+					case 2:
+						dispatch(Error('网络错误'))
+					break;
+				}
+			})
+	}
+}
+export { Register, Error, Success };

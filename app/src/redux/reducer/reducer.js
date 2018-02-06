@@ -1,12 +1,17 @@
 import axios from 'axios';
-
-export default function reducer(state = [],action) {
+var initState = {
+    'name':'',
+    'pwd':'',
+    'type':'',
+    'msg':''
+};
+export default function userReducer(state = initState,action) {
     switch(action.type){
-        case 'LoadData':
-            return action.data;
+        case 'Success':
+            return Object.assign({},state,action.data);
         break;
-        case 'RemoveGun':
-            return state-1;
+        case 'Error':
+            return Object.assign({},state,{msg:action.data});
         break;
         case 'fetchData':
             return Object.assign({},state);

@@ -13,11 +13,12 @@ class AuthRouter extends Component {
 			.then((res)=>{
 				if(res.data.code != 0){
 					this.props.history.push('/Login')
+				}else{
+					this.props.history.push(res.data.body.type)
 				}
 			})
 	}
 	render() {
-		console.log(this.props)
 		return null
 	}
 }

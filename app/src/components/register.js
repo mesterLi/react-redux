@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 import {
  Button, 
  Radio, 
@@ -38,10 +39,20 @@ class Register extends Component{
 	}
 	render() {
 		const RadioItem = Radio.RadioItem;
+		var ToastStr = '';
+		if(this.props.state.msg){
+			ToastStr = Toast.info(this.props.state.msg,2)
+			setTimeout(()=>{
+				this.props.ClearMsg();
+			})
+		}else{
+			ToastStr = null;
+		}
 		return (
 			<div>
+				{this.props.state.linkTo ? <Redirect to={ this.props.state.linkTo }></Redirect> : null}
 				<Logo />
-				{this.props.state.msg!='' ? Toast.info(this.props.state.msg,2) : null}
+				{ ToastStr }
 				<List>
 					<WhiteSpace />
 					<InputItem 

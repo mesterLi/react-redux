@@ -6,10 +6,11 @@ var model = require('./model')
 const User = model.getModel('user')
 
 Router.get('/info',function(req,res){
-	if(!req.cookies){
+	console.log(req.cookies)
+	if(!req.cookies.userid){
 		return res.json({code:1,msg:'未登录'})
 	}
-	User.findOne({_id:req.cookies},function(err,json){
+	User.findOne({_id:req.cookies.userid},function(err,json){
 		if(err){
 			return res.json({code:2,msg:'网络错误'})
 		}
@@ -24,24 +25,14 @@ Router.post('/register',function(req,res){
 			return;
 		}
 		var UserModel = new User({name:name,pwd:getMd5(pwd),type:type});
-		console.log(req.body)
 		UserModel.save(function(err,json){
 			if(err){
 				return res.json({code:2,msg:'网络错误'});
 			}
-			console.log(json)
 			var { _id, type, name } = json;
-			res.cookies = _id;
+			res.cookie('userid',_id);
 			res.json({code:0,msg:'注册成功',type,name});
 		})
-		// User.create({name:name,pwd:getMd5(pwd)},function(err,json){
-		// 	if(err){
-		// 		res.json({code:2,msg:'网络错误'})
-		// 		return;
-		// 	}
-		// 	res.json({code:0,msg:'注册成功',body:json})
-		// 	return;
-		// })
 	})
 })
 Router.get('/query',function(req,res){
@@ -50,7 +41,17 @@ Router.get('/query',function(req,res){
 	})
 })
 Router.post('/login',function(req,res){
-	console.log(req.query)
+	var { name, pwd } = req.body;
+	User.findOne({ name:name, pwd:getMd5(pwd) },function(err,json){
+		if(err){
+			return res.json({code:2,msg:'网络错误'})
+		}
+		if(!json){
+			return res.json({code:0,msg:'账号或密码错误',body:json})
+		}
+		res.cookie('userid',json._id);
+		return res.json({code:0,msg:'登陆成功',body:json})
+	})
 })
 //删除数据
 Router.get('/remove',function(req,res){

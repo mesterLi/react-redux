@@ -7,7 +7,11 @@ const models = {
 		"userid":{ "type":String,"require":true },
 		"name":{ "type":String,"require":true },
 		"pwd":{ "type":String,"require":true },
-		"type":{ "type":String,"require":true }
+		"type":{ "type":String,"require":true },
+		"company":{ "type":String,"require":true },
+		"condition":{ "type":String,"require":true },
+		"icon":{ "type":String,"require":true },
+		"text":{ "type":String,"require":true}
 	}
 }
 for(var m in models){

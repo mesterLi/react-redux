@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { 
 	Button, 
 	WhiteSpace, 
@@ -8,7 +9,6 @@ import {
 	InputItem, 
 	Toast 
 } from 'antd-mobile'
-import { connect } from 'react-redux'
 
 import * as actions from '../redux/actions/action'
 import Logo from './logo'

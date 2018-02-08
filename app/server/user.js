@@ -5,8 +5,8 @@ var utility = require('utility');
 var model = require('./model')
 const User = model.getModel('user')
 
+//获取登录信息
 Router.get('/info',function(req,res){
-	console.log(req.cookies)
 	if(!req.cookies.userid){
 		return res.json({code:1,msg:'未登录'})
 	}
@@ -14,9 +14,11 @@ Router.get('/info',function(req,res){
 		if(err){
 			return res.json({code:2,msg:'网络错误'})
 		}
-		return res.json({code:0,msg:'',body:json})
+		return res.json({code:0,msg:null,body:json})
 	})
 })
+
+//注册
 Router.post('/register',function(req,res){
 	const { name, pwd, type } = req.body;
 	User.findOne({name},function(err,json){
@@ -31,15 +33,19 @@ Router.post('/register',function(req,res){
 			}
 			var { _id, type, name } = json;
 			res.cookie('userid',_id);
-			res.json({code:0,msg:'注册成功',type,name});
+			res.json({code:0,msg:'注册成功',body:{type,name}});
 		})
 	})
 })
+
+//查询数据
 Router.get('/query',function(req,res){
 	User.find(function(err,json){
 		res.json(json)
 	})
 })
+
+//登录
 Router.post('/login',function(req,res){
 	var { name, pwd } = req.body;
 	User.findOne({ name:name, pwd:getMd5(pwd) },function(err,json){
@@ -51,6 +57,18 @@ Router.post('/login',function(req,res){
 		}
 		res.cookie('userid',json._id);
 		return res.json({code:0,msg:'登陆成功',body:json})
+	})
+})
+
+//更新信息
+Router.post('/updateinfo',function(req,res){
+	console.log(req.body)
+	const { company, condition, icon, text } = req.body;
+	User.update({_id:req.cookies.userid},{'$set':req.body},function(err,json){
+		if(err){
+			return res.json({code:2,msg:'网络错误'})
+		}
+		return res.json({code:0,msg:'提交成功',body:json})
 	})
 })
 //删除数据

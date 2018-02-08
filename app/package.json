@@ -96,6 +96,9 @@
       "react-app"
     ]
   },
+  "plugins":[
+    "transform-decorators"
+  ],
   "eslintConfig": {
     "extends": "react-app"
   },

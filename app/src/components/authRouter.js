@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import axios from 'axios'
+
+import { LoadData } from '../redux/actions/action'
 
 class AuthRouter extends Component {
 	componentDidMount() {
@@ -9,12 +12,13 @@ class AuthRouter extends Component {
 		if(routePath.indexOf(pathName)>=1){
 			return;
 		}
+		
 		axios.get('/user/info')
 			.then((res)=>{
 				if(res.data.code != 0){
 					this.props.history.push('/Login')
 				}else{
-					this.props.history.push(res.data.body.type)
+					this.props.LoadData(res.data)
 				}
 			})
 	}
@@ -27,4 +31,5 @@ var mapStateProps = state =>{
 		state:state
 	}
 }
-export default connect(mapStateProps)(AuthRouter);
+var mapDiapatchProps = { LoadData };
+export default connect(mapStateProps,mapDiapatchProps)(AuthRouter);

@@ -1,20 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
 import {
  Button, 
  Radio, 
  WhiteSpace, 
  WingBlank, 
  List, 
- InputItem,
- Toast
+ InputItem
 } from 'antd-mobile'
 
 import * as action from '../redux/actions/action'
 import Logo from './logo'
-
+@connect(
+	state=>({
+		state:state.userReducer
+	}),
+	action
+)
 class Register extends Component{
 	constructor(props){
 		super(props)
@@ -31,7 +34,7 @@ class Register extends Component{
 		})
 	}
 	Login() {
-		this.props.history.push('/Login')
+		this.props.history.push('/login')
 	}
 	Register() {
 		var { name, pwd, repwd, type } = this.state;
@@ -39,57 +42,44 @@ class Register extends Component{
 	}
 	render() {
 		const RadioItem = Radio.RadioItem;
-		var ToastStr = '';
-		if(this.props.state.msg){
-			ToastStr = Toast.info(this.props.state.msg,2)
-			setTimeout(()=>{
-				this.props.ClearMsg();
-			})
-		}else{
-			ToastStr = null;
-		}
 		return (
 			<div>
-				{this.props.state.linkTo ? <Redirect to={ this.props.state.linkTo }></Redirect> : null}
-				<Logo />
-				{ ToastStr }
-				<List>
-					<WhiteSpace />
-					<InputItem 
-					onChange={v=>this.handlerChange('name',v)}
-					>账号</InputItem>
-					<WhiteSpace />
-					<InputItem 
-					type="password"
-					onChange={v=>this.handlerChange('pwd',v)}
-					>密码</InputItem>
-					<WhiteSpace />
-					<InputItem 
-					type="password"
-					onChange={v=>this.handlerChange('repwd',v)}
-					>确认密码</InputItem>
-					<WhiteSpace />
-					<RadioItem 
-					checked={this.state.type == 'boss'}
-					onChange={()=>this.handlerChange('type','boss')}
-					>老板</RadioItem>
-					<WhiteSpace />
-					<RadioItem 
-					checked={this.state.type == 'genius'}
-					onChange={()=>this.handlerChange('type','genius')}
-					>牛人</RadioItem>
-					<WhiteSpace />
-					<Button type="primary" onClick={()=>this.Login()}>登录</Button>
-					<WhiteSpace />
-					<Button type="primary" onClick={()=>this.Register()}>注册</Button>
+			<WingBlank>
+					<Logo />
+					<List>
+						<WhiteSpace />
+						<InputItem 
+						onChange={v=>this.handlerChange('name',v)}
+						>账号</InputItem>
+						<WhiteSpace />
+						<InputItem 
+						type="password"
+						onChange={v=>this.handlerChange('pwd',v)}
+						>密码</InputItem>
+						<WhiteSpace />
+						<InputItem 
+						type="password"
+						onChange={v=>this.handlerChange('repwd',v)}
+						>确认密码</InputItem>
+						<WhiteSpace />
+						<RadioItem 
+						checked={this.state.type == 'boss'}
+						onChange={()=>this.handlerChange('type','boss')}
+						>老板</RadioItem>
+						<WhiteSpace />
+						<RadioItem 
+						checked={this.state.type == 'genius'}
+						onChange={()=>this.handlerChange('type','genius')}
+						>牛人</RadioItem>
+						<WhiteSpace />
+						<Button type="primary" onClick={()=>this.Login()}>登录</Button>
+						<WhiteSpace />
+						<Button type="primary" onClick={()=>this.Register()}>注册</Button>
 
-				</List>
+					</List>
+				</WingBlank>
 			</div>
 		)
 	}
 }
-var mapStateProps = state =>({
-	state:state.userReducer
-})
-var mapDispatchProps = action;
-export default connect(mapStateProps,mapDispatchProps)(Register);
+export default Register;

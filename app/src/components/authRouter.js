@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
+import { Toast } from 'antd-mobile'
 import axios from 'axios'
 
-import { LoadData } from '../redux/actions/action'
-
+import { SuccessAcions, ClearMsg } from '../redux/actions/action'
+@withRouter
+@connect(
+	state=>({
+		state:state.userReducer
+	}),
+	{ SuccessAcions, ClearMsg }
+)
 class AuthRouter extends Component {
 	componentDidMount() {
 		const routePath = ['/Login','/Register'];
@@ -16,20 +23,28 @@ class AuthRouter extends Component {
 		axios.get('/user/info')
 			.then((res)=>{
 				if(res.data.code != 0){
-					this.props.history.push('/Login')
+					this.props.history.push('/login')
 				}else{
-					this.props.LoadData(res.data)
+					this.props.SuccessAcions(res.data)
 				}
 			})
 	}
 	render() {
-		return null
+		const { pathname } = this.props.location;
+		const authRouterList =['/boss','/bossinfo','/genius','/geniusinfo','/login','/register','/'];//authrouter只控制这6个页面
+		const { linkTo, msg } = this.props.state;
+		console.log(authRouterList.indexOf())
+		return (
+			<div>
+				{linkTo&&linkTo !== pathname&&authRouterList.indexOf(pathname) >=0  ? <Redirect to={this.props.state.linkTo} /> : null}
+				{msg ? Toast.info(msg,1):null}
+			</div>
+		)
+	}
+	componentDidUpdate() {
+		if(this.props.state.msg){
+			this.props.ClearMsg();
+		}
 	}
 }
-var mapStateProps = state =>{
-	return {
-		state:state
-	}
-}
-var mapDiapatchProps = { LoadData };
-export default connect(mapStateProps,mapDiapatchProps)(AuthRouter);
+export default AuthRouter;

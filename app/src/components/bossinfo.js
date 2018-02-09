@@ -20,13 +20,14 @@ import { UpdateInfo, ClearMsg } from '../redux/actions/action'
 	}),
 	{ UpdateInfo, ClearMsg }
 )
-class Geniusinfo extends Component{
+class Bossinfo extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
 			condition:'',
 			icon:'',
 			text:'',
+			company:'',
 			paysalary:''
 		}
 	}
@@ -50,22 +51,27 @@ class Geniusinfo extends Component{
 		})
 	}
 	render() {
+		console.log(this.props.state)
 		return (
 			<div>
 				<WingBlank>
 					{this.props.state.msg ? Toast.info(this.props.state.msg,2) : null}
 					<NavBar
 						icon={<Icon type="left" />}
-					>Geniusinfo</NavBar>
+					>Bossinfo</NavBar>
 					<Portraitlist onselect={(v)=>this.onSelect(v)}/>
 					<WhiteSpace />
 					<InputItem
-						onChange={(v)=>this.handleChange('salary',v)}
-					>薪资</InputItem>
+						onChange={(v)=>this.handleChange('company',v)}
+					>公司</InputItem>
+					<WhiteSpace />
+					<InputItem
+						onChange={(v)=>this.handleChange('paysalary',v)}
+					>支付薪资</InputItem>
 					<WhiteSpace />
 					<TextareaItem 
 						rows="3"
-						placeholder="个人介绍"
+						placeholder="要求"
 						onChange={(v)=>this.handleChange('condition',v)}
 					/>
 					<WhiteSpace />
@@ -76,4 +82,4 @@ class Geniusinfo extends Component{
 	}
 }
 
-export default Geniusinfo;
+export default Bossinfo;

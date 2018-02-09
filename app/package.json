@@ -94,13 +94,16 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      "transform-decorators-legacy"
     ]
   },
-  "plugins":[
-    "transform-decorators"
-  ],
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://localhost:9093"
+  "proxy": "http://localhost:9093",
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.2"
+  }
 }

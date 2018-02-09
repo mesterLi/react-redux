@@ -62,14 +62,15 @@ Router.post('/login',function(req,res){
 
 //更新信息
 Router.post('/updateinfo',function(req,res){
-	console.log(req.body)
-	const { company, condition, icon, text } = req.body;
-	User.update({_id:req.cookies.userid},{'$set':req.body},function(err,json){
-		if(err){
-			return res.json({code:2,msg:'网络错误'})
+	if(!req.cookies.userid){
+		return res.json({code:1,msg:'未登录'})
+	}
+	User.findByIdAndUpdate({_id:req.cookies.userid},req.body,function(err,json){
+		if (err) {
+			return res.json({code:0,msg:'网络错误'})
 		}
-		return res.json({code:0,msg:'提交成功',body:json})
-	})
+		return res.json({code:0,msg:'提交成功',body:req.body})
+	})	
 })
 //删除数据
 Router.get('/remove',function(req,res){

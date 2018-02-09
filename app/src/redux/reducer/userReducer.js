@@ -9,14 +9,14 @@ var initState = {
     'linkTo':null,
     'company':'',
     'condition':'',
-    'icon':'',
+    'icon':null,
     'text':''
 };
 export default function userReducer(state = initState,action) {
     switch(action.type){
-        case 'RegisterSuccess':
+        case 'SuccessAcions':
             var { body, msg } =  action.data;
-            return Object.assign({},state,{ name:body.name, type:body.type, msg:msg,'linkTo':linkTo(body) });
+            return Object.assign({},state,{'linkTo':linkTo(body),msg:msg},body)
         break;
         case 'ErrorMsg':
             return Object.assign({},state,{msg:action.data});
@@ -24,13 +24,6 @@ export default function userReducer(state = initState,action) {
         case 'ClearMsg':
             return Object.assign({},state,{msg:null});
         break;
-        case 'LoginSuccess':
-            var { msg, body } = action.data;
-            return Object.assign({},state,{ name:body.name, type:body.type, msg:msg,'linkTo':linkTo(body) });
-        break;
-        case 'LoadData':
-            var { msg, body } = action.data;
-            return Object.assign({},state,body,{ msg:msg,'linkTo':linkTo(body) });
         default:
             return state;
     }

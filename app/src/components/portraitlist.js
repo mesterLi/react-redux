@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 import { 
 	List, 
 	Grid, 
@@ -6,6 +7,7 @@ import {
 } from 'antd-mobile'
 
 class Portraitlist extends Component{
+	static PropsSelect = PropTypes.func.isRequired
 	constructor(props){
 		super(props)
 		this.state = {

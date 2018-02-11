@@ -5,11 +5,6 @@ import { withRouter } from 'react-router-dom'
 import propTypes from 'prop-types'
 
 import { UpdateInfo, ClearMsg } from '../redux/actions/action'
-var fixed={
-	position:fixed,
-	bottom:0,
-	left:0
-}
 
 @withRouter
 @connect(

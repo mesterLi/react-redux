@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { 
 	NavBar, 
 	Icon, 
@@ -44,16 +45,17 @@ class Bossinfo extends Component{
 		})
 	}
 	Submit() {
-		console.log(this.props)
 		this.props.UpdateInfo(this.state)
 		setTimeout(()=>{
 			this.props.ClearMsg()
 		})
 	}
 	render() {
-		console.log(this.props.state)
+		const { pathname } = this.props.location;
+		const { linkTo } = this.props.state;
 		return (
 			<div>
+				{ linkTo&&linkTo!=pathname ? <Redirect to={linkTo} /> : null}
 				<WingBlank>
 					{this.props.state.msg ? Toast.info(this.props.state.msg,2) : null}
 					<NavBar

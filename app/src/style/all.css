@@ -3,3 +3,12 @@
 	bottom: 0;
 	width: 100%;
 }
+.fixed-header{
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 999;
+}
+.userlist{
+	padding:45px 0;
+}

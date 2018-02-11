@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { 
 	Button, 
 	WhiteSpace, 
@@ -9,6 +10,7 @@ import {
 } from 'antd-mobile'
 
 import * as actions from '../redux/actions/action'
+import Publicform from './publicform'
 import Logo from './logo'
 
 @connect(
@@ -17,40 +19,34 @@ import Logo from './logo'
 	}),
 	actions
 )
+@Publicform
 class Login extends Component{
 	constructor(props){
 		super(props)
-		this.state = {
-			'name':'',
-			'pwd':''
-		}
 	}
 	Register() {
 		this.props.history.push('./register');
 	}
-	handleChange(key,value) {
-		this.setState({
-			[key]:value
-		})
-	}
 	Login() {
-		this.props.Login(this.state);
+		this.props.Login(this.props.propsState);
 	}
 	render() {
 		var { linkTo } = this.props.state;
+		var { pathname } = this.props.location
 		return (
 			<div>
+				{ linkTo&&linkTo!='/login' ? <Redirect to={linkTo} /> : null}
 				<WingBlank>
 					<Logo />
 					<List>
 						<WhiteSpace />
 						<InputItem 
-							onChange={(v)=>this.handleChange('name',v)}
+							onChange={(v)=>this.props.handleChange('name',v)}
 						>账号</InputItem>
 						<WhiteSpace />
 						<InputItem 
 						type="password" 
-							onChange={(v)=>this.handleChange('pwd',v)}
+							onChange={(v)=>this.props.handleChange('pwd',v)}
 						>密码</InputItem>
 						<WhiteSpace />
 						<Button type="primary" 

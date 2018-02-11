@@ -11,14 +11,10 @@ import {
 import { UpdateInfo, ClearMsg } from '../redux/actions/action'
 import Footbar from './footbar'
 import Boss from './boss'
+import Genius from './genius'
+import Me from './me'
 
-function Genius() {
-	return <h1>Boss</h1>
-}
 function Msglist() {
-	return <h1>Boss</h1>
-}
-function Me() {
 	return <h1>Boss</h1>
 }
 @connect(
@@ -69,21 +65,23 @@ class Mainpage extends Component{
 		const { pathname } = this.props.location;
 		return (
 			<div>
-				<NavBar>{
+				<NavBar className="fixed-header">{
 					routePage.map(v=>{
 						if(v.path == pathname){
 							return v.title
 						}
 					})
 				}</NavBar>
-				<WingBlank>
-					<Switch>
-						<Route path="/boss" component={Boss}></Route>
-						<Route path="/genius" component={Genius}></Route>
-						<Route path="/msglist" component={Msglist}></Route>
-						<Route path="/me" component={Me}></Route>
-					</Switch>
-				</WingBlank>
+				<div className="userlist">
+					<WingBlank>
+						<Switch>
+							<Route path="/boss" component={Boss}></Route>
+							<Route path="/genius" component={Genius}></Route>
+							<Route path="/msglist" component={Msglist}></Route>
+							<Route path="/me" component={Me}></Route>
+						</Switch>
+					</WingBlank>
+				</div>
 				<Footbar menus = { routePage }/>
 			</div>
 		)

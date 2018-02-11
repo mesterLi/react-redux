@@ -17,7 +17,18 @@ Router.get('/info',function(req,res){
 		return res.json({code:0,msg:null,body:json})
 	})
 })
-
+//获取所有牛人或boss信息
+Router.get('/list',function(req,res){
+	if(!req.cookies.userid){
+		return res.json({code:1,msg:'未登录'})
+	}
+	User.find({type:req.query.type},function(err,json) {
+		if(err){
+			return res.json({code:2,msg:'网络错误'})
+		}
+		return res.json({code:0,msg:null,body:json})
+	})
+})
 //注册
 Router.post('/register',function(req,res){
 	const { name, pwd, type } = req.body;

@@ -9,9 +9,9 @@ import Userlist from './userlist'
 	}),
 	{ GetList }
 )
-class Boss extends Component{
+class Genius extends Component{
 	componentDidMount() {
-		this.props.GetList('genius')
+		this.props.GetList('boss')
 	}
 	render() {
 		const state = this.props.state;
@@ -22,4 +22,4 @@ class Boss extends Component{
 		)
 	}
 }
-export default Boss
+export default Genius

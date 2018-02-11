@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { Toast } from 'antd-mobile'
 import axios from 'axios'
 
@@ -30,13 +30,9 @@ class AuthRouter extends Component {
 			})
 	}
 	render() {
-		const { pathname } = this.props.location;
-		const authRouterList =['/boss','/bossinfo','/genius','/geniusinfo','/login','/register','/'];//authrouter只控制这6个页面
-		const { linkTo, msg } = this.props.state;
-		console.log(authRouterList.indexOf())
+		const {  msg } = this.props.state;
 		return (
 			<div>
-				{linkTo&&linkTo !== pathname&&authRouterList.indexOf(pathname) >=0  ? <Redirect to={this.props.state.linkTo} /> : null}
 				{msg ? Toast.info(msg,1):null}
 			</div>
 		)

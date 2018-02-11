@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { 
 	NavBar, 
 	Icon, 
@@ -50,8 +51,11 @@ class Geniusinfo extends Component{
 		})
 	}
 	render() {
+		const { pathname } = this.props.location;
+		const { linkTo } = this.props.state;
 		return (
 			<div>
+				{ linkTo&&linkTo!=pathname ? <Redirect to={linkTo} /> : null}
 				<WingBlank>
 					{this.props.state.msg ? Toast.info(this.props.state.msg,2) : null}
 					<NavBar

@@ -24,6 +24,8 @@ export default function userReducer(state = initState,action) {
         case 'ClearMsg':
             return Object.assign({},state,{msg:null});
         break;
+        case 'Logout' :
+            return {linkTo:'/login'}
         default:
             return state;
     }
